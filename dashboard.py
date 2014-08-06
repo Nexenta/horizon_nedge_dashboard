@@ -3,6 +3,8 @@ from django.utils.translation import ugettext_lazy as _
 import horizon
 
 
+# discard this comment.
+
 class MyGroup(horizon.PanelGroup):
     slug = 'mygroup'
     name = _('My Group')
