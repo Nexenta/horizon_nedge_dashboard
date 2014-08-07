@@ -13,9 +13,13 @@
     </div>
   </div>
 
+  <h4>Clusters:</h4>
   <ul>
-    <li />Clusters: {{ clusters }}
-    <li />Python version: {{ python_version }}
+    {% for c in clusters %}
+      <li />{{ c }}
+    {% endfor %}
   </ul>
+
+  <h5>Python version: {{ python_version }}</h5>
 
 {% endblock %}

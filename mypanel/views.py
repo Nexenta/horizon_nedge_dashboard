@@ -5,23 +5,17 @@ from openstack_dashboard.dashboards.mydashboard.mypanel import tabs as mydashboa
 
 import sys
 sys.path.append("/usr/lib/python2.7/dist-packages")
-# import pycurl 
 import requests
+import json
 
 class IndexView(views.APIView):
     tab_group_class = mydashboard_tabs.MypanelTabs
     template_name = 'mydashboard/mypanel/index.html'
 
     def get_data(self, request, context, *args, **kwargs):
-        
-#        c = pycurl.Curl()
-#        c.setopt(c.URL, 'http://172.31.98.28:8081/')
-#        clusters = c.perform()
-#        context['clusters'] = clusters
 
-        r = requests.get("http://172.31.98.28:8081/")
-        context['clusters'] = r.text
-
+        clusters_endpoint = requests.get("http://192.168.100.1:8081/clusters")
+        context['clusters'] = json.loads(clusters_endpoint.text)['clusters']
 
         context['python_version'] = sys.version
 
