@@ -7,19 +7,43 @@
 {% endblock page_header %}
 
 {% block mydashboard_main %}
-  <div class="row">
+  <div class="row hide">
     <div class="col-sm-12">
     {{ tab_group.render }}
     </div>
   </div>
 
-  <h4>Clusters:</h4>
-  <ul>
+  <h3>Cluster Status:</h3>
+  <b>Status:</b> Online
+
+  <ul class="hide">
     {% for c in clusters %}
       <li />{{ c }}
     {% endfor %}
   </ul>
 
-  <h5>Python version: {{ python_version }}</h5>
+  <h3>Nodes</h3>
+  <ul>
+    <li /> <img src="/static/dashboard/img/green.png" alt='' /> 11 Node(s) OK
+    <li /> <img src="/static/dashboard/img/yellow.png" alt='' />  1 Node(s) DEGRADED
+    <li /> <img src="/static/dashboard/img/red.png" alt='' />  0 Node(s) FAULTED state
+  </ul>
+
+  <hr />
+
+  <h3>Statistics:</h3>
+  <h4>Storage Statistics:</h4>
+  <div class="row">
+    <div class="col-sm-6">
+      Total storage capacity: 24TB<br />
+      Used storage capacity: 10TB<br />
+      Available capacity: 16TB<br />
+    </div>
+    <div class="col-sm-6">
+      Compression ratio: 1.05x<br />
+      Deduplication ratio: 2.01x<br />
+
+    </div>
+  <div>
 
 {% endblock %}
