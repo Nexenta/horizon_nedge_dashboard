@@ -6,7 +6,7 @@ from openstack_dashboard.dashboards.mydashboard import dashboard
 
 
 class Mypanel(horizon.Panel):
-    name = _("Nedge Admin")
+    name = _("Dashboard")
     slug = "mypanel"
 
 
