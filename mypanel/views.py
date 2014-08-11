@@ -24,7 +24,12 @@ class IndexView(views.APIView):
         stats = json.loads(stats_endpoint.text)['response']['stats']
         nodes = stats['servers']
         for n in nodes:
+            if 100 == nodes[n]['health']:
+                nodes[n]['status'] = 'ONLINE' 
+            else:
+                nodes[n]['status'] = 'FAULTED'
             context['nodes'].append(n)
+
         context['nodes'] = nodes
         nodes_good = {x:nodes[x] for x in nodes if 100 == nodes[x]['health']}
         context['n_nodes_good'] = len(nodes_good)

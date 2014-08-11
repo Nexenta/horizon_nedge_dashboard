@@ -1,1 +1,43 @@
-/* Additional CSS for mydashboard. */
+
+.c {
+  float: none !important;
+  clear: both !important;
+}
+
+body {
+}
+
+.col-1 {
+  width: 50%;
+  float: left;
+}
+.col-2 {
+  width: 50%;
+  float: left;
+}
+
+.storage-statistics > div > div {
+  padding-left: 50px;
+}
+
+.row {
+  margin-bottom: 20px;
+}
+
+.node {
+  line-height: 20px;
+}
+
+.node-bar-outer {
+  border: 1px solid black;
+  width: 100px;
+  height: 20px;
+  display: inline-block;
+  padding: 2px;
+  top: 8px;
+  position: relative;
+}
+.node-bar-inner {
+  background: gray;
+  height: 20px;
+}

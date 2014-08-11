@@ -54,9 +54,15 @@
 
   <h4>Node Statistics:</h4>
   <div class="nodes">
-    {% for n in nodes %}
+    {% for idx, node in nodes.items %}
       <div class="node">
-        {{ n }}
+        Node {{ forloop.counter }}: {{ node.status }}
+	<div class="node-bar-outer">
+	  <div class="node-bar-inner" style="width: {{ node.utilization }}%" >
+	  </div>
+	</div>
+		{{ node.utilization }}% utilization,
+		{{ node.num_objects }} objects
       </div>
     {% endfor %}
   </div>
