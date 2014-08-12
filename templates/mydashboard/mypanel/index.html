@@ -29,9 +29,9 @@
   <h4>Storage Statistics:</h4>
   <div class="row storage-statistics">
     <div class="col-1"><div>
-      Total storage capacity: 24TB<br />
-      Used storage capacity: 10TB<br />
-      Available capacity: 16TB<br />
+      Total storage capacity: {{ capacity_total }}<br />
+      Used storage capacity: {{ capacity_used }}<br />
+      Available capacity: {{ capacity_available }}<br />
     </div></div>
     <div class="col-2"><div>
       Compression ratio: 1.00x<br />
@@ -55,8 +55,8 @@
   <h4>Node Statistics:</h4>
   <div class="nodes">
     {% for idx, node in nodes.items %}
-      <div class="node">
-        Node {{ forloop.counter }}: {{ node.status }}
+      <div class="node" id="{{ node.serverid }}" >
+        Node {{ forloop.counter }}: <span class="status" >{{ node.status }}</span>
 	<div class="node-bar-outer">
 	  <div class="node-bar-inner" style="width: {{ node.utilization }}%" >
 	  </div>

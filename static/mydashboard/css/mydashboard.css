@@ -1,34 +1,35 @@
 
-.c {
+#nexenta_dashboard_main .c {
   float: none !important;
   clear: both !important;
 }
 
-body {
-}
-
-.col-1 {
+#nexenta_dashboard_main .col-1 {
   width: 50%;
   float: left;
 }
-.col-2 {
+#nexenta_dashboard_main .col-2 {
   width: 50%;
   float: left;
 }
 
-.storage-statistics > div > div {
+#nexenta_dashboard_main .storage-statistics > div > div {
   padding-left: 50px;
 }
 
-.row {
+#nexenta_dashboard_main .row {
   margin-bottom: 20px;
 }
 
-.node {
+#nexenta_dashboard_main .node {
   line-height: 20px;
 }
 
-.node-bar-outer {
+#nexenta_dashboard_main .node .status {
+  padding: 0 10px;
+}
+
+#nexenta_dashboard_main .node-bar-outer {
   border: 1px solid black;
   width: 100px;
   height: 20px;
@@ -37,7 +38,7 @@ body {
   top: 8px;
   position: relative;
 }
-.node-bar-inner {
+#nexenta_dashboard_main .node-bar-inner {
   background: gray;
   height: 20px;
 }
