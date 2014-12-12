@@ -56,18 +56,45 @@
   </div>
 
   <h4>Node Statistics:</h4>
-  <div class="nodes">
-    {% for idx, node in nodes.items %}
-      <div class="node" id="{{ node.serverid }}" >
-        Node {{ forloop.counter }}: <span class="status" >{{ node.status }}</span>
-	<div class="node-bar-outer">
-	  <div class="node-bar-inner" style="width: {{ node.utilization }}%" >
-	  </div>
-	</div>
-	{{ node.utilization }}% utilization,
-	{{ node.num_objects }} objects
-      </div>
-      {% endfor %}
+  <div class="nodes table_wrapper">
+    <table id="nedge_nodes" class="table table-bordered table-striped datatable">
+      <thead>
+        <tr class="table_caption">
+          <th class="table_header" colspan="12">
+	    <h3 class="table_title">Nodes</h3>
+          </th>
+        </tr>
+        <tr>
+          <th class="normal_column">Node name</th>
+          <th class="normal_column">Node status</th>
+          <th class="normal_column">IPv6</th>
+          <th class="normal_column">Health</th>
+          <th class="normal_column">Number of objects</th>
+          <th class="normal_column">Capacity</th>
+          <th class="normal_column">Used capacity</th>
+          <th class="normal_column">Utilization</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for idx, node in nodes.items %}
+        <tr>
+          <td class="normal_column">{{ node.hostname }}</td>
+          <td class="normal_column">{{ node.status }}</td>
+          <td class="normal_column">{{ node.ipv6addr }}</td>
+          <td class="normal_column">{{ node.health }}</td>
+          <td class="normal_column">{{ node.num_objects }}</td>
+          <td class="normal_column">{{ node.capacity }}</td>
+          <td class="normal_column">{{ node.used }}</td>
+          <td class="normal_column">{{ node.utilization }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="12">&nbsp;</td>
+        </tr>
+      </tfoot>
+    </table>
   </div>
   
 {% endblock %}

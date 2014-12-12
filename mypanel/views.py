@@ -63,6 +63,8 @@ class IndexView(views.APIView):
                 nodes[n]['status'] = 'ONLINE' 
             else:
                 nodes[n]['status'] = 'FAULTED'
+            nodes[n]['capacity'] = size(nodes[n]['capacity'], system=alternative)
+            nodes[n]['used'] = size(nodes[n]['used'], system=alternative)
             context['nodes'].append(n)
 
         context['nodes'] = nodes
