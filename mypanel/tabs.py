@@ -4,7 +4,7 @@ from horizon import exceptions
 from horizon import tabs
 
 from openstack_dashboard import api
-from openstack_dashboard.dashboards.mydashboard.mypanel import tables
+from openstack_dashboard.dashboards.horizon_nedge_dashboard.mypanel import tables
 
 
 class AnotherTab(tabs.TableTab):

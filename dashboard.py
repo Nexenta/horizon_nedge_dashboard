@@ -1,3 +1,4 @@
+
 from django.utils.translation import ugettext_lazy as _
 
 import horizon
@@ -9,12 +10,10 @@ class MyGroup(horizon.PanelGroup):
     panels = ('mypanel',)
 
 
-class NedgeDashboard(horizon.Dashboard):
+class HorizonNedgeDashboard(horizon.Dashboard):
     name = _("NexentaEdge")
     slug = "nedge_dashboard"
-    panels = ('Mygroup', 'mypanel', )
+    panels = ('Mygroup', 'mypanel', 'config', )
     default_panel = 'mypanel'
 
-
-
-horizon.register(NedgeDashboard)
+horizon.register(HorizonNedgeDashboard)

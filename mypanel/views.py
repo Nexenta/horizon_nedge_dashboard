@@ -1,24 +1,30 @@
+
 from horizon import tabs
 from horizon import views
 
-from openstack_dashboard.dashboards.mydashboard.mypanel import tabs as mydashboard_tabs
+from openstack_dashboard.dashboards.horizon_nedge_dashboard.mypanel import tabs as mydashboard_tabs
+from openstack_dashboard.dashboards.horizon_nedge_dashboard.vendor.filesize import size
 
 import sys
 sys.path.append("/usr/lib/python2.7/dist-packages")
-from hurry.filesize import size
 import requests
 import json
 
+from django.conf import settings
+
 class IndexView(views.APIView):
     tab_group_class = mydashboard_tabs.MypanelTabs
-    template_name = 'mydashboard/mypanel/index.html'
+    template_name = 'horizon_nedge_dashboard/mypanel/index.html'
 
     def get_data(self, request, context, *args, **kwargs):
 
         # clusters_endpoint = requests.get("http://10.3.30.230:8080/clusters")
         # context['clusters'] = json.loads(clusters_endpoint.text)['clusters']
+        #
+        # print "+++ +++ settings"
+        # print settings.NEDGE_STATS_URL
 
-        stats_endpoint = requests.get("http://10.3.30.230:8080/stats")
+        stats_endpoint = requests.get(settings.NEDGE_STATS_URL)
 
         context['nodes'] = []
         stats = json.loads(stats_endpoint.text)['response']['stats']

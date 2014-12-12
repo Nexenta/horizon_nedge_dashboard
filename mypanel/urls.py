@@ -3,7 +3,7 @@ from django.conf.urls import url  # noqa
 
 from .views import IndexView
 
-from openstack_dashboard.dashboards.mydashboard.mypanel import views
+from openstack_dashboard.dashboards.horizon_nedge_dashboard.mypanel import views
 
 urlpatterns = patterns('',
     url(r'^$', views.IndexView.as_view(), name='index'),
