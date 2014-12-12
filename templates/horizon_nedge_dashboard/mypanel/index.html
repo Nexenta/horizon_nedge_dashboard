@@ -1,0 +1,70 @@
+{% extends 'horizon_nedge_dashboard/base.html' %}
+{% load i18n %}
+{% block title %}{% trans "NexentaEdge Dashboard" %}{% endblock %}
+
+{% block page_header %}
+  {% include "horizon/common/_page_header.html" with title=_("NexentaEdge Dashboard") %}
+{% endblock page_header %}
+
+{% block mydashboard_main %}
+  <div class="row hide">
+    <div class="col-sm-12">
+    {{ tab_group.render }}
+    </div>
+  </div>
+
+  <h3>Cluster Status:</h3>
+  <b>Status:</b> Online
+
+  <h3>Nodes</h3>
+  <ul>
+    <li /> <img src="/static/dashboard/img/green.png" alt='' /> {{ n_nodes_good }} Node(s) OK
+    <li /> <img src="/static/dashboard/img/yellow.png" alt='' />  0 Node(s) DEGRADED
+    <li /> <img src="/static/dashboard/img/red.png" alt='' />  {{ n_nodes_bad }} Node(s) FAULTED state
+  </ul>
+
+  <hr />
+
+  <h3>Statistics:</h3>
+  <h4>Storage Statistics:</h4>
+  <div class="row storage-statistics">
+    <div class="col-1"><div>
+      Total storage capacity: {{ capacity_total }}<br />
+      Used storage capacity: {{ capacity_used }}<br />
+      Available capacity: {{ capacity_available }}<br />
+    </div></div>
+    <div class="col-2"><div>
+      Compression ratio: 1.00x<br />
+      Deduplication ratio: 1.00x<br />
+    </div></div>
+    <div class="c"></div>
+  </div>
+  <div class="c"></div>
+
+  <div class="row storage-statistics">
+    <div class="col-1"><div>
+      Number of objects: {{ n_objects }}<br />
+      <div class="hide">Average object size: 120Kb<br /></div>
+    </div></div>
+    <div class="col-2 hide"><div>
+      # of snapshots: 3355<br />
+    </div></div>
+    <div class="c"></div>
+  </div>
+
+  <h4>Node Statistics:</h4>
+  <div class="nodes">
+    {% for idx, node in nodes.items %}
+      <div class="node" id="{{ node.serverid }}" >
+        Node {{ forloop.counter }}: <span class="status" >{{ node.status }}</span>
+	<div class="node-bar-outer">
+	  <div class="node-bar-inner" style="width: {{ node.utilization }}%" >
+	  </div>
+	</div>
+		{{ node.utilization }}% utilization,
+		{{ node.num_objects }} objects
+      </div>
+    {% endfor %}
+  </div>
+
+{% endblock %}

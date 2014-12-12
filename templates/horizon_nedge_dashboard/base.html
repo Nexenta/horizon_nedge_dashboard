@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block sidebar %}
+  {% include 'horizon/common/_sidebar.html' %}
+{% endblock %}
+
+{% block main %}
+    {% include "horizon/_messages.html" %}
+    <div id="nexenta_dashboard_main">{% block mydashboard_main %}{% endblock %}</div>
+{% endblock %}
+
+<!-- From: http://docs.openstack.org/developer/horizon/topics/customizing.html -->
+{% block js %}
+    {% include 'horizon_nedge_dashboard/_scripts.html' %}
+{% endblock %}
+
