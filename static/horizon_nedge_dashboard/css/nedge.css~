@@ -42,3 +42,16 @@
   background: gray;
   height: 20px;
 }
+
+/* header */
+.nedge-header {  
+}
+.nedge-header .page-header {
+}
+.nedge-header .page-header h1 {
+  background: #ED6906;
+  color: white;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 10px;
+}

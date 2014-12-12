@@ -3,52 +3,55 @@
 {% block title %}{% trans "NexentaEdge Dashboard" %}{% endblock %}
 
 {% block page_header %}
-  {% include "horizon/common/_page_header.html" with title=_("NexentaEdge Dashboard") %}
+  <div class="nedge-header">
+    {% include "horizon/common/_page_header.html" with title=_("NexentaEdge Dashboard") %}
+  </div>
 {% endblock page_header %}
 
 {% block mydashboard_main %}
-  <div class="row hide">
-    <div class="col-sm-12">
-    {{ tab_group.render }}
-    </div>
+
+  <div class="notifications">
+    {% for note in notifications %}
+    <div class="item">{{ note.message }}</div>
+    {% endfor %}
   </div>
 
-  <h3>Cluster Status:</h3>
-  <b>Status:</b> Online
+  <div class="this-overview">
+    <img class="this-vmworld" src="{{ STATIC_URL }}horizon_nedge_dashboard/img/vmworld.png" alt="" width="170px" />
+    <h3>Overview:</h3>
+    <ul>
+      <li><b>Endpoint:</b> {{ nedge_url }}</li>
+      <li><b>Status:</b> {{ system_status }}</li>
+    </ul>
 
-  <h3>Nodes</h3>
-  <ul>
-    <li /> <img src="/static/dashboard/img/green.png" alt='' /> {{ n_nodes_good }} Node(s) OK
-    <li /> <img src="/static/dashboard/img/yellow.png" alt='' />  0 Node(s) DEGRADED
-    <li /> <img src="/static/dashboard/img/red.png" alt='' />  {{ n_nodes_bad }} Node(s) FAULTED state
-  </ul>
-
+    <h3>Nodes</h3>
+    <ul>
+      <li />{{ n_nodes_good }} Node(s) OK
+      <li />0 Node(s) DEGRADED
+      <li />{{ n_nodes_bad }} Node(s) FAULTED
+    </ul>
+  </div>
+  <div class="c"></div>
   <hr />
 
-  <h3>Statistics:</h3>
-  <h4>Storage Statistics:</h4>
-  <div class="row storage-statistics">
-    <div class="col-1"><div>
+  <div class="nedge-stats">
+    <h3>Statistics:</h3>
+    <h4 class="hide">Storage Statistics:</h4>
+    <div class="storage-statistics">
       Total storage capacity: {{ capacity_total }}<br />
       Used storage capacity: {{ capacity_used }}<br />
       Available capacity: {{ capacity_available }}<br />
-    </div></div>
-    <div class="col-2"><div>
-      Compression ratio: 1.00x<br />
-      Deduplication ratio: 1.00x<br />
-    </div></div>
-    <div class="c"></div>
-  </div>
-  <div class="c"></div>
-
-  <div class="row storage-statistics">
-    <div class="col-1"><div>
       Number of objects: {{ n_objects }}<br />
-      <div class="hide">Average object size: 120Kb<br /></div>
-    </div></div>
-    <div class="col-2 hide"><div>
-      # of snapshots: 3355<br />
-    </div></div>
+      <div class="c"></div>
+    </div>
+    <div class="reduction-factor">
+      <h1>{{ reduction_factor }}</h1>
+      Reduction Factor
+    </div>
+    <div class="data-reduction">
+      <h1>{{ data_reduction }}</h1>
+      Data Reduction
+    </div>
     <div class="c"></div>
   </div>
 
@@ -61,10 +64,10 @@
 	  <div class="node-bar-inner" style="width: {{ node.utilization }}%" >
 	  </div>
 	</div>
-		{{ node.utilization }}% utilization,
-		{{ node.num_objects }} objects
+	{{ node.utilization }}% utilization,
+	{{ node.num_objects }} objects
       </div>
-    {% endfor %}
+      {% endfor %}
   </div>
-
+  
 {% endblock %}
