@@ -18,8 +18,4 @@
 {% block css %}
   {% include "_stylesheets.html" %}
   <link href='{{ STATIC_URL }}horizon_nedge_dashboard/css/nedge.css' type='text/css' media='screen' rel='stylesheet' />
-
-  {% load compress %}
-  {% compress css %}
-  {% endcompress %}
 {% endblock %}
