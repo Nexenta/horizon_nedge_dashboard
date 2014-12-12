@@ -1,2 +1,4 @@
 
-alert('everything');
+"use strict";
+
+// alert('everything');

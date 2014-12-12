@@ -7,13 +7,14 @@ import horizon
 class MyGroup(horizon.PanelGroup):
     slug = 'mygroup'
     name = _('My Group')
-    panels = ('mypanel',)
-
+    # panels = ( 'mypanel', 'config_panel', 'overview_panel', )
+    panels = ( 'mypanel', )
 
 class HorizonNedgeDashboard(horizon.Dashboard):
     name = _("NexentaEdge")
     slug = "nedge_dashboard"
-    panels = ('Mygroup', 'mypanel', 'config', )
+    # panels = ('Mygroup', 'mypanel', 'config_panel', 'overview_panel', )
+    panels = ( 'mypanel', )
     default_panel = 'mypanel'
 
 horizon.register(HorizonNedgeDashboard)
