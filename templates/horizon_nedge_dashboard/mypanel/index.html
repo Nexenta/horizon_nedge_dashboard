@@ -27,7 +27,7 @@
     <h3>Nodes</h3>
     <ul>
       <li />{{ n_nodes_good }} Node(s) OK
-      <li />0 Node(s) DEGRADED
+      <li />{{ n_nodes_degraded }} Node(s) DEGRADED
       <li />{{ n_nodes_bad }} Node(s) FAULTED
     </ul>
   </div>
@@ -78,14 +78,14 @@
       <tbody>
         {% for idx, node in nodes.items %}
         <tr>
-          <td class="normal_column">{{ node.hostname }}</td>
+          <td class="normal_column">{{ node.hostname |default:"Retrieving information..." }}</td>
           <td class="normal_column">{{ node.status }}</td>
-          <td class="normal_column">{{ node.ipv6addr }}</td>
+          <td class="normal_column">{{ node.ipv6addr |default:"Retrieving information..." }}</td>
           <td class="normal_column">{{ node.health }}</td>
-          <td class="normal_column">{{ node.num_objects }}</td>
+          <td class="normal_column">{{ node.num_objects |default:"Retrieving information..." }}</td>
           <td class="normal_column">{{ node.capacity }}</td>
           <td class="normal_column">{{ node.used }}</td>
-          <td class="normal_column">{{ node.utilization }}</td>
+          <td class="normal_column">{{ node.utilization |default:"Retrieving information..." }}</td>
         </tr>
         {% endfor %}
       </tbody>

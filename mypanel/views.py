@@ -24,13 +24,21 @@ class IndexView(views.APIView):
         context['notifications'] = []
         context['n_nodes_good'] = 0
         context['n_nodes_bad'] = 0
+        context['data_reduction'] = 0
+        context['reduction_factor'] = 0
+        context['system_status'] = 'NOT OK'
 
         try:
             context['nedge_url'] = settings.NEDGE_URL
-            print '+++ +++ endpoint'
-            print context['nedge_url']
+            if context['nedge_url'].endswith('/'):
+                pass
+            else:
+                context['nedge_url'] = context['nedge_url'] + '/'
+
+            # print '+++ +++ endpoint'
+            # print context['nedge_url']
         except AttributeError:
-            note = { 'message': _('Missing parameter NEDGE_URL in settings.py. For example, NEDGE_URL="http://192.168.100.1:8080/" with final slash.') }
+            note = { 'message': _('Missing parameter NEDGE_URL in settings.py. For example, NEDGE_URL="http://192.168.100.1:8080/" ') }
             context['notifications'].append( note )
             return context
 
@@ -49,28 +57,49 @@ class IndexView(views.APIView):
             print '+++ +++ notes'
             print context['notifications']
             return context
+        except ValueError:
+            note = { 'message': _('The Nedge cluster ReST worker at %s is probably offline. Please check your Nedge cluster ReST worker' % context['nedge_url']) }
+            context['notifications'].append( note )
+            return context
 
         stats_endpoint = requests.get("%s/system/stats" % settings.NEDGE_URL)
 
         context['nodes'] = []
 
-
         stats = json.loads(stats_endpoint.text)['response']['stats']
 
         nodes = stats['servers']
         for n in nodes:
-            if 100 == nodes[n]['health']:
-                nodes[n]['status'] = 'ONLINE' 
+            if 'health' in nodes[n]:
+                if 100 == nodes[n]['health']:
+                    nodes[n]['status'] = 'ONLINE' 
+                elif 0 == nodes[n]['health']:
+                    nodes[n]['status'] = 'FAULTED'
+                else:
+                    nodes[n]['status'] = 'DEGRADED'
             else:
                 nodes[n]['status'] = 'FAULTED'
-            nodes[n]['capacity'] = size(nodes[n]['capacity'], system=alternative)
-            nodes[n]['used'] = size(nodes[n]['used'], system=alternative)
+                nodes[n]['health'] = 0
+
+            if 'capacity' in nodes[n]:
+                nodes[n]['capacity'] = size(nodes[n]['capacity'], system=alternative)
+            else:
+                nodes[n]['capacity'] = _('Retrieving information...')
+
+            if 'used' in nodes[n]:
+                nodes[n]['used'] = size(nodes[n]['used'], system=alternative)
+            else:
+                nodes[n]['used'] = _('Retrieving information...')
+
             context['nodes'].append(n)
 
         context['nodes'] = nodes
         nodes_good = {x:nodes[x] for x in nodes if 100 == nodes[x]['health']}
+        nodes_bad = {x:nodes[x] for x in nodes if 0 == nodes[x]['health']}
         context['n_nodes_good'] = len(nodes_good)
-        context['n_nodes_bad'] = len(nodes) - context['n_nodes_good']
+        context['n_nodes_bad'] = len(nodes_bad)
+        context['n_nodes_degraded'] = len(nodes) - len(nodes_good) - len(nodes_bad)
+
         context['n_objects'] = stats['summary']['total_num_objects']
         context['capacity_total'] = size(stats['summary']['total_capacity'], system=alternative)
         context['capacity_used'] = size(stats['summary']['total_used'], system=alternative)
