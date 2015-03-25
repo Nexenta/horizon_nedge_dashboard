@@ -35,3 +35,6 @@ Next, restart apache and memcached and you should be able to see the Nedge Dashb
 3. Restart apache and memcached
 4. Profit
 
+==== Version ====
+
+This is version 0.0.1
