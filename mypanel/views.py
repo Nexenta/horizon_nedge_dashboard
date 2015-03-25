@@ -110,8 +110,11 @@ class IndexView(views.APIView):
             data_reduction = 0
         context['data_reduction'] = size(data_reduction, system=alternative)
 
-        # reduction factor is the difference between logical and physical used, expressed as a portion of the logical used.
-        context['reduction_factor'] = data_reduction / (stats['summary']['total_logical_used']+1)
-        context['reduction_factor'] = "%sx" % context['reduction_factor']
+        ## reduction factor is the difference between logical and physical used, expressed as a portion of the logical used.
+        ## auditserv now provides reduction factor as a string, so computing it is unnecessary.
+        ## _vp_ 20150325
+        # context['reduction_factor'] = data_reduction / (stats['summary']['total_logical_used']+1)
+        # context['reduction_factor'] = "%sx" % context['reduction_factor']
+        context['reduction_factor'] = stats['summary']['reduction_ratio']
 
         return context

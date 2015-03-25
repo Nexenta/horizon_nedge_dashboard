@@ -9,13 +9,116 @@
     <div id="nexenta_dashboard_main">{% block mydashboard_main %}{% endblock %}</div>
 {% endblock %}
 
-<!-- From: http://docs.openstack.org/developer/horizon/topics/customizing.html -->
-{% block js %}
-    {% include 'horizon_nedge_dashboard/_scripts.html' %}
-{% endblock %}
-
-
 {% block css %}
   {% include "_stylesheets.html" %}
-  <link href='{{ STATIC_URL }}horizon_nedge_dashboard/css/nedge.css' type='text/css' media='screen' rel='stylesheet' />
+  <!-- <link href='{{ STATIC_URL }}horizon_nedge_dashboard/css/nedge.css' type='text/css' media='screen' rel='stylesheet' /> -->
+  <style>
+
+#nexenta_dashboard_main .c {
+  float: none !important;
+  clear: right !important;
+}
+
+#nexenta_dashboard_main .col-1 {
+  width: 50%;
+  float: left;
+}
+#nexenta_dashboard_main .col-2 {
+  width: 50%;
+  float: left;
+}
+
+#nexenta_dashboard_main .storage-statistics > div > div {
+  padding-left: 50px;
+}
+
+#nexenta_dashboard_main .row {
+  margin-bottom: 20px;
+}
+
+#nexenta_dashboard_main .node {
+  line-height: 20px;
+}
+
+#nexenta_dashboard_main .node .status {
+  padding: 0 10px;
+}
+
+#nexenta_dashboard_main .node-bar-outer {
+  border: 1px solid black;
+  width: 100px;
+  height: 20px;
+  display: inline-block;
+  padding: 2px;
+  top: 8px;
+  position: relative;
+}
+#nexenta_dashboard_main .node-bar-inner {
+  background: gray;
+  height: 20px;
+}
+
+/* header */
+.nedge-header {
+  padding-top: 10px;
+}
+.nedge-header .page-header {
+}
+.nedge-header .page-header h1,
+.nedge-header .page-header h2 {
+  background: #ED6906 url('https://s3.amazonaws.com/ish-archive/2014/Clients/Nexenta/nexenta_logo_50.png') no-repeat right center;
+  color: white;
+  height: 56px;
+  line-height: 56px;
+  padding-left: 10px;
+}
+
+/* notifications */
+#nexenta_dashboard_main .notifications {
+  margin-left: 50%;
+}
+#nexenta_dashboard_main .notifications .item {
+  border: 2px solid red;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 10px;
+  margin-left: -50%;
+}
+
+/* overview */
+#nexenta_dashboard_main .this-overview {
+  font-size: 1em;
+}
+#nexenta_dashboard_main .this-vmworld {
+  float: left;
+}
+
+/* statistics */
+#nexenta_dashboard_main .nedge-stats .storage-statistics {
+  float: left;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+#nexenta_dashboard_main .nedge-stats .data-reduction {
+  float: right;
+  border-right: 1px solid gray;
+  padding-bottom: 20px;
+  padding-right: 30px;
+  text-align: center;
+}
+#nexenta_dashboard_main .nedge-stats .reduction-factor {
+  padding-left: 25px;
+  margin-right: 100px;
+  float: right;
+  text-align: center;
+}
+#nexenta_dashboard_main .nedge-stats .data-reduction h1,
+#nexenta_dashboard_main .nedge-stats .reduction-factor h1 {
+  color: #ED6906;
+  font-size: 3em;
+  text-align: center;
+  margin-bottom: 9px;
+}
+  </style>
 {% endblock %}
