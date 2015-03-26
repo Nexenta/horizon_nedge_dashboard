@@ -4,7 +4,7 @@ from horizon import exceptions
 from horizon import tabs
 
 from openstack_dashboard import api
-from openstack_dashboard.dashboards.mydashboard.mypanel import tables
+from openstack_dashboard.dashboards.horizon_nedge_dashboard.mypanel import tables
 
 
 class AnotherTab(tabs.TableTab):
@@ -13,21 +13,20 @@ class AnotherTab(tabs.TableTab):
     table_classes = (tables.InstancesTable,)
     template_name = ('horizon/common/_detail_table.html')
     preload = False
-
+    
 class InstanceTab(tabs.TableTab):
     name = _("Instances Tab")
     slug = "instances_tab"
     table_classes = (tables.InstancesTable,)
     template_name = ("horizon/common/_detail_table.html")
     preload = False
-
+    
     def has_more_data(self, table):
         return self._has_more
 
     def get_instances_data(self):
         try:
-            marker = self.request.GET.get(
-                        tables.InstancesTable._meta.pagination_param, None)
+            marker = self.request.GET.get(tables.InstancesTable._meta.pagination_param, None)
 
             instances, self._has_more = api.nova.server_list(
                 self.request,

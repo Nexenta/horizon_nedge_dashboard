@@ -1,22 +1,20 @@
+
 from django.utils.translation import ugettext_lazy as _
 
 import horizon
 
 
-# discard this comment.
-
 class MyGroup(horizon.PanelGroup):
     slug = 'mygroup'
     name = _('My Group')
-    panels = ('mypanel',)
+    # panels = ( 'mypanel', 'config_panel', 'overview_panel', )
+    panels = ( 'mypanel', )
 
-
-class Mydashboard(horizon.Dashboard):
-    name = _("My Dashboard (^)")
-    slug = "mydashboard"
-    panels = ('Mygroup', 'mypanel', )
+class HorizonNedgeDashboard(horizon.Dashboard):
+    name = _("NexentaEdge")
+    slug = "nedge_dashboard"
+    # panels = ('Mygroup', 'mypanel', 'config_panel', 'overview_panel', )
+    panels = ( 'mypanel', )
     default_panel = 'mypanel'
 
-
-
-horizon.register(Mydashboard)
+horizon.register(HorizonNedgeDashboard)

@@ -1,0 +1,101 @@
+{% extends 'horizon_nedge_dashboard/base.html' %}
+{% load i18n %}
+{% block title %}{% trans "NexentaEdge Dashboard" %}{% endblock %}
+
+{% block page_header %}
+  <div class="nedge-header">
+    {% include "horizon/common/_page_header.html" with title=_("NexentaEdge Dashboard") %}
+  </div>
+{% endblock page_header %}
+
+{% block mydashboard_main %}
+
+  <div class="notifications">
+    {% for note in notifications %}
+    <div class="item">{{ note.message }}</div>
+    {% endfor %}
+  </div>
+
+  <div class="this-overview">
+    <img class="this-vmworld" src="https://s3.amazonaws.com/ish-archive/2014/Clients/Nexenta/vmworld.png" alt="" width="170px" />
+    <h3>Overview:</h3>
+    <ul>
+      <li><b>Endpoint:</b> {{ nedge_url }}</li>
+      <li><b>Status:</b> {{ system_status }}</li>
+    </ul>
+
+    <h3>Nodes</h3>
+    <ul>
+      <li />{{ n_nodes_good }} Node(s) OK
+      <li />{{ n_nodes_degraded }} Node(s) DEGRADED
+      <li />{{ n_nodes_bad }} Node(s) FAULTED
+    </ul>
+  </div>
+
+  <div class="c"></div>
+  <hr />
+
+  <div class="nedge-stats">
+    <h3>Statistics:</h3>
+    <h4 class="hide">Storage Statistics:</h4>
+    <div class="storage-statistics">
+      Total storage capacity: {{ capacity_total }}<br />
+      Used storage capacity: {{ capacity_used }}<br />
+      Available capacity: {{ capacity_available }}<br />
+      Number of objects: {{ n_objects }}<br />
+      <div class="c"></div>
+    </div>
+    <div class="reduction-factor">
+      <h1>{{ reduction_factor }}</h1>
+      Reduction Factor
+    </div>
+    <div class="data-reduction">
+      <h1>{{ data_reduction }}</h1>
+      Data Reduction
+    </div>
+    <div class="c"></div>
+  </div>
+
+  <h4>Node Statistics:</h4>
+  <div class="nodes table_wrapper">
+    <table id="nedge_nodes" class="table table-bordered table-striped datatable">
+      <thead>
+        <tr class="table_caption">
+          <th class="table_header" colspan="12">
+	    <h3 class="table_title">Nodes</h3>
+          </th>
+        </tr>
+        <tr>
+          <th class="normal_column">Node name</th>
+          <th class="normal_column">Node status</th>
+          <th class="normal_column">IPv6</th>
+          <th class="normal_column">Health</th>
+          <th class="normal_column">Number of objects</th>
+          <th class="normal_column">Capacity</th>
+          <th class="normal_column">Used capacity</th>
+          <th class="normal_column">Utilization</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for idx, node in nodes.items %}
+        <tr>
+          <td class="normal_column">{{ node.hostname |default:"Retrieving information..." }}</td>
+          <td class="normal_column">{{ node.status }}</td>
+          <td class="normal_column">{{ node.ipv6addr |default:"Retrieving information..." }}</td>
+          <td class="normal_column">{{ node.health }}</td>
+          <td class="normal_column">{{ node.num_objects |default:"Retrieving information..." }}</td>
+          <td class="normal_column">{{ node.capacity }}</td>
+          <td class="normal_column">{{ node.used }}</td>
+          <td class="normal_column">{{ node.utilization |default:"Retrieving information..." }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="12">&nbsp;</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  
+{% endblock %}
